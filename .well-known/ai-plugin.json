@@ -1,1 +1,19 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Meal Tracker",
+  "name_for_model": "meal_tracker",
+  "description_for_human": "Log meals and retrieve tracking data via ChatGPT",
+  "description_for_model": "Plugin to log meals and get daily/weekly/monthly summaries from the Meal Tracking Web App",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://hatesands.github.io/meal-tracker-plugin/openapi.json",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://hatesands.github.io/meal-tracker-plugin/logo.png",
+  "contact_email": "hatesand@me.com",
+  "legal_info_url": "https://shutterlyamazed.com/legal"
+}
 
