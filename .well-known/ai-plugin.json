@@ -4,12 +4,11 @@
   "name_for_model": "meal_tracker",
   "description_for_human": "Log your meals to Google Sheets",
   "description_for_model": "Plugin for logging meals and duplicating month templates",
-  "auth": {
-    "type": "service_http",
-    "authorization_type": "Bearer"
-  },
+  // No HTTP‐level auth – we pass the API key in the JSON payload
+  "auth": { "type": "none" },
   "api": {
     "type": "openapi",
+    // THIS must point at where you serve your OpenAPI spec:
     "url": "https://script.google.com/macros/s/AKfycbzR2-u0FjMcJT2PzfhEZpWS6q-HtbHUc9WGq_jPqdn27DawXQclZg7oi6pVNOk9zNg5/exec/openapi.json",
     "is_user_authenticated": false
   },
