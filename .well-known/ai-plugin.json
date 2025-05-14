@@ -10,7 +10,6 @@
   },
   "api": {
     "type": "openapi",
-    // ← CHANGE THIS to your Apps Script exec URL
     "url": "https://script.google.com/macros/s/AKfycbzR2-u0FjMcJT2PzfhEZpWS6q-HtbHUc9WGq_jPqdn27DawXQclZg7oi6pVNOk9zNg5/exec/openapi.json",
     "is_user_authenticated": false
   },
