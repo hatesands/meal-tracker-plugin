@@ -1,96 +1,81 @@
-{
-  "openapi": "3.0.1",
-  "info": {
-    "title": "Meal Tracker API",
-    "version": "1.0.0",
-    "description": "Endpoints for logging meals and fetching summaries"
-  },
-  "servers": [
-    {
-      "url": "https://script.google.com/macros/s/AKfycbzR2-u0FjMcJT2PzfhEZpWS6q-HtbHUc9WGq_jPqdn27DawXQclZg7oi6pVNOk9zNg5/exec"
-    }
-  ],
-  "paths": {
-    "/log": {
-      "post": {
-        "summary": "Log a meal entry",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/MealEntry" }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Log successful"
-          }
-        }
-      }
-    },
-    "/summary": {
-      "get": {
-        "summary": "Get meal summary",
-        "parameters": [
-          {
-            "in": "query",
-            "name": "date",
-            "schema": { "type": "string", "format": "date" },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Summary returned",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Summary" }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "MealEntry": {
-        "type": "object",
-        "properties": {
-          "date": { "type": "string", "format": "date" },
-          "mealType": { "type": "string" },
-          "items": { "type": "array", "items": { "type": "string" } },
-          "macros": {
-            "type": "object",
-            "properties": {
-              "calories": { "type": "number" },
-              "protein": { "type": "number" },
-              "carbs": { "type": "number" },
-              "fat": { "type": "number" },
-              "fiber": { "type": "number" }
-            }
-          }
-        },
-        "required": ["date","mealType","items"]
-      },
-      "Summary": {
-        "type": "object",
-        "properties": {
-          "date": { "type": "string", "format": "date" },
-          "totals": {
-            "type": "object",
-            "properties": {
-              "calories": { "type": "number" },
-              "protein": { "type": "number" },
-              "carbs": { "type": "number" },
-              "fat": { "type": "number" },
-              "fiber": { "type": "number" }
-            }
-          }
-        }
-      }
-    }
-  }
-}
+openapi: 3.0.1
+info:
+  title: Meal Tracker API
+  version: "1.0.0"
+servers:
+  - url: https://script.google.com/macros/s/AKfycbzR2-u0FjMcJT2PzfhEZpWS6q-HtbHUc9WGq_jPqdn27DawXQclZg7oi6pVNOk9zNg5/exec
+paths:
+  /:
+    post:
+      summary: Duplicate a month or log meals
+      description: |
+        * action = "duplicateMonth"  
+        * action = "logMeals"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PluginRequest'
+      responses:
+        '200':
+          description: Success or error JSON
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PluginResponse'
 
+components:
+  schemas:
+    PluginRequest:
+      type: object
+      required:
+        - apiKey
+        - action
+      properties:
+        apiKey:
+          type: string
+          description: Your secret API key
+        action:
+          type: string
+          enum: [duplicateMonth, logMeals]
+        monthInput:
+          type: string
+          description: Full month name and year, e.g. "July 2025"
+        mealSheetName:
+          type: string
+          description: "<Month YYYY> - Meals"
+        meals:
+          type: array
+          items:
+            $ref: '#/components/schemas/MealLog'
+    MealLog:
+      type: object
+      required:
+        - row
+      properties:
+        row:
+          type: integer
+          description: Row number on the Meals sheet (4–31)
+        breakfastText:
+          type: string
+        lunchText:
+          type: string
+        dinnerText:
+          type: string
+        snacksText:
+          type: string
+        workoutShakesText:
+          type: string
+    PluginResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum: [success, error]
+        action:
+          type: string
+        message:
+          type: string
