@@ -2,18 +2,19 @@
   "schema_version": "v1",
   "name_for_human": "Meal Tracker",
   "name_for_model": "meal_tracker",
-  "description_for_human": "Log meals and retrieve tracking data via ChatGPT",
-  "description_for_model": "Plugin to log meals and get daily/weekly/monthly summaries from the Meal Tracking Web App",
+  "description_for_human": "Log your meals to Google Sheets",
+  "description_for_model": "Plugin for logging meals and duplicating month templates",
   "auth": {
-    "type": "none"
+    "type": "service_http",
+    "authorization_type": "Bearer"
   },
   "api": {
     "type": "openapi",
-    "url": "https://hatesands.github.io/meal-tracker-plugin/openapi.json",
+    // ← CHANGE THIS to your Apps Script exec URL
+    "url": "https://script.google.com/macros/s/AKfycbzR2-u0FjMcJT2PzfhEZpWS6q-HtbHUc9WGq_jPqdn27DawXQclZg7oi6pVNOk9zNg5/exec/openapi.json",
     "is_user_authenticated": false
   },
-  "logo_url": "https://hatesands.github.io/meal-tracker-plugin/logo.png",
-  "contact_email": "hatesand@me.com",
-  "legal_info_url": "https://shutterlyamazed.com/legal"
+  "logo_url": "https://<your-host>/logo.png",
+  "contact_email": "you@example.com",
+  "legal_info_url": "https://example.com/legal"
 }
-
